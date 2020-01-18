@@ -93,4 +93,6 @@ E por fim preciso criar um arquivo na raiz chamada .prettierrc, para que ele nã
   "trailingComma": "es5"
 }
 
+E no final um comando para que ele arrume todos os arquivos *.js com o padrão estabelecido.
 
+yarn eslint --fix src --ext .js
