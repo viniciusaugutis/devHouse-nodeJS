@@ -1,8 +1,15 @@
 DEV HOUSE NODE JS
 
-## Available Scripts
+## Tecnologias
 
-In the project directory, you can run:
+- Node JS
+- Rest API
+- Express
+- Sucrase
+- Mongoose
+
+
+## Scripts
 
 ### `yarn install`
 
