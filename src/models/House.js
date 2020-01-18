@@ -20,4 +20,5 @@ HouseSchema.virtual('thumbnail_url').get(function () {
   return `http://localhost:3333/files/${this.thumbnail}`;
 });
 
-export default model('House', HouseSchema);
+export default model('House', HouseSchema); //usa com o sucrase
+module.exports = model('House', HouseSchema); //usa com o require do NodeJS

@@ -2,6 +2,7 @@ import { Router } from 'express';
 import SessionController from './controllers/SessionController';
 import HouseController from './controllers/HouseController';
 import DashboardController from './controllers/DashboardController';
+import ReserveController from './controllers/ReserveController';
 
 import multer from 'multer';
 import uploadConfig from './config/uploader';
@@ -18,4 +19,7 @@ routes.delete('/houses', HouseController.destroy);
 
 routes.get('/dashboard', DashboardController.show);
 
+routes.post('/houses/:house_id/reserve', ReserveController.store);
+
 export default routes;
+
