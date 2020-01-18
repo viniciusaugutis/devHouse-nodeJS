@@ -1,4 +1,4 @@
-/*metodos: index, show, update, store, destroy
+/* metodos: index, show, update, store, destroy
   index: listagem de sessoes
   store: criar uma sessão
   update: listar uma única sessão
@@ -6,20 +6,21 @@
   destroy: deletar uma sessão
 */
 
-import User from '../models/User';  //const user = require('../models/User');
 import * as Yup from 'yup';
+import User from '../models/User'; // const user = require('../models/User');
 
 class SessionController {
-
   async store(req, res) {
     const { email } = req.body;
 
-    let schema = Yup.object().shape({
-      email: Yup.string().email().required()
+    const schema = Yup.object().shape({
+      email: Yup.string()
+        .email()
+        .required(),
     });
-    
+
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({error: 'Email deve ser válido'});
+      return res.status(400).json({ error: 'Email deve ser válido' });
     }
 
     let user = await User.findOne({ email });
@@ -30,7 +31,6 @@ class SessionController {
 
     return res.json(user);
   }
-
 }
 
 export default new SessionController();

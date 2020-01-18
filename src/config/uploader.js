@@ -10,6 +10,5 @@ export default {
 
       callback(null, `${name}-${Date.now()}${ext}`);
     },
-    
-  })
-}
+  }),
+};

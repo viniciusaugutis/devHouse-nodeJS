@@ -1,11 +1,9 @@
-import House from '../models/House';
-import User from '../models/User';
 import mongoose from 'mongoose';
 import * as Yup from 'yup';
+import House from '../models/House';
+import User from '../models/User';
 
 class HouseController {
-
-
   async index(req, res) {
     const { status } = req.query;
 
@@ -15,12 +13,11 @@ class HouseController {
   }
 
   async store(req, res) {
-
     const schema = Yup.object().shape({
       description: Yup.string().required(),
       price: Yup.number().required(),
       location: Yup.string().required(),
-      status: Yup.boolean().required()
+      status: Yup.boolean().required(),
     });
 
     const { filename } = req.file;
@@ -28,7 +25,7 @@ class HouseController {
     const { user_id } = req.headers;
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({error: 'Falha na validação dos dados'})
+      return res.status(400).json({ error: 'Falha na validação dos dados' });
     }
 
     const house = await House.create({
@@ -37,7 +34,7 @@ class HouseController {
       description,
       price,
       location,
-      status
+      status,
     });
 
     return res.json(house);
@@ -53,7 +50,7 @@ class HouseController {
       description: Yup.string().required(),
       price: Yup.number().required(),
       location: Yup.string().required(),
-      status: Yup.boolean().required()
+      status: Yup.boolean().required(),
     });
 
     if (!mongoose.Types.ObjectId.isValid(user_id)) {
@@ -68,21 +65,26 @@ class HouseController {
     }
 
     if (!user || String(user._id) !== String(houseToEdit.user)) {
-      return res.status(401).json({ error: `Usuário não enontrado ou autorizado para editar!` });
+      return res
+        .status(401)
+        .json({ error: `Usuário não enontrado ou autorizado para editar!` });
     }
 
     if (!(await schema.isValid(req.body))) {
-      return res.status(400).json({error: 'Falha na validação dos dados'})
+      return res.status(400).json({ error: 'Falha na validação dos dados' });
     }
-    
-    await House.updateOne({ _id: id }, {
-      user: user_id,
-      thumbnail: filename,
-      description,
-      price,
-      location,
-      status
-    });
+
+    await House.updateOne(
+      { _id: id },
+      {
+        user: user_id,
+        thumbnail: filename,
+        description,
+        price,
+        location,
+        status,
+      }
+    );
 
     return res.send();
   }
@@ -99,16 +101,20 @@ class HouseController {
     const houseToEdit = await House.findById(id);
 
     if (!id || !houseToEdit) {
-      return res.status(404).json({ error: `Casa não encontrada para remoção` });
+      return res
+        .status(404)
+        .json({ error: `Casa não encontrada para remoção` });
     }
 
     if (!user || String(user._id) !== String(houseToEdit.user)) {
-      return res.status(401).json({ error: `Usuário não encontrado ou autorizado para editar!` });
+      return res
+        .status(401)
+        .json({ error: `Usuário não encontrado ou autorizado para editar!` });
     }
 
     await House.findByIdAndDelete({ _id: id });
 
-    return res.json({ message: "Casa removida com sucesso" })
+    return res.json({ message: 'Casa removida com sucesso' });
   }
 }
 

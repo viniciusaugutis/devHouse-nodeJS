@@ -1,0 +1,96 @@
+Utilizar aspas simples ao invés de aspas duplas
+utilizar a extensão editorconfig
+yarn add eslint -D
+yarn eslint --init e selecionar opção para ele checar projeto e encontrar problemas
+
+Depois de instalado Control + Shift + P e vai na opção Open Settings (JSON)
+
+"eslint.autoFixOnSave": true,
+"eslint.validate": [
+    {
+        "language": "javascript",
+        "autofix": true
+    },
+    {
+        "language": "javascriptreact",
+        "autofix": true
+    },
+    {
+        "language": "typescript",
+        "autofix": true
+    },
+    {
+        "language": "typescriptreact",
+        "autofix": true
+    }
+]
+
+Como foi criado um arquivo chamada .eslintrc.js coloca nele o conteudo
+
+module.exports = {
+  env: {
+    browser: true,
+    es6: true,
+  },
+  extends: [
+    'airbnb-base',
+  ],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+  },
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
+  },
+  rules: {
+    "class-methods-use-this": "off",
+    "no-param-reassign": "off",
+    "camelcase": "off",
+    "no-underscore-dangle": "off",
+    "no-unused-var": ["error", { "argsIgnorePattern": "next" }]
+  },
+};
+
+Depois disso instalar a extensão Prettier, para formatação do documento.
+Instala ela no VSCode e vai no cmd para instalar plugin do prettier junto com Eslint:
+yarn add prettier eslint-config-prettier eslint-plugin-prettier -D
+
+E depois atualiza o arquivo .eslintrc.js
+
+module.exports = {
+  env: {
+    browser: true,
+    es6: true,
+  },
+  extends: [
+    'airbnb-base',
+    'prettier'
+  ],
+  plugins: ['prettier'],
+  globals: {
+    Atomics: 'readonly',
+    SharedArrayBuffer: 'readonly',
+  },
+  parserOptions: {
+    ecmaVersion: 2018,
+    sourceType: 'module',
+  },
+  rules: {
+    "prettier/prettier": "error",
+    "class-methods-use-this": "off",
+    "no-param-reassign": "off",
+    "camelcase": "off",
+    "no-underscore-dangle": "off",
+    "no-unused-var": ["error", { "argsIgnorePattern": "next" }]
+  },
+};
+
+E por fim preciso criar um arquivo na raiz chamada .prettierrc, para que ele não conflite com as especificações do eslint e airbn, com o conteudo:
+
+{
+  "singleQuote": true,
+  "trailingComma": "es5"
+}
+
+

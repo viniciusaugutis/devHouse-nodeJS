@@ -1,4 +1,4 @@
-//Todas configurações do Express
+// Todas configurações do Express
 
 import express from 'express';
 import mongoose from 'mongoose';
@@ -11,10 +11,13 @@ class App {
   constructor() {
     this.server = express();
 
-    mongoose.connect('mongodb+srv://devhouse:devhouse@devhouse-ve9at.mongodb.net/devhouse?retryWrites=true&w=majority', {
-      useNewUrlParser: true,
-      useUnifiedTopology: true
-    });
+    mongoose.connect(
+      'mongodb+srv://devhouse:devhouse@devhouse-ve9at.mongodb.net/devhouse?retryWrites=true&w=majority',
+      {
+        useNewUrlParser: true,
+        useUnifiedTopology: true,
+      }
+    );
 
     this.middlewares();
     this.routes();
@@ -22,14 +25,16 @@ class App {
 
   middlewares() {
     this.server.use(cors());
-    this.server.use('/files', express.static(path.resolve(__dirname, '..', 'uploads')));
+    this.server.use(
+      '/files',
+      express.static(path.resolve(__dirname, '..', 'uploads'))
+    );
     this.server.use(express.json());
   }
 
   routes() {
     this.server.use(routes);
   }
-
 }
 
 export default new App().server;
